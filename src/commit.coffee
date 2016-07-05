@@ -45,7 +45,7 @@ module.exports = class Commit
   #
   # callback - Receives `(err, commits)`
   #
-  @find_all: (repo, ref, options, callback) ->
+  @find_all: (repo, ref="HEAD", options, callback) ->
     options = _.extend {pretty: "raw"}, options
     repo.git "rev-list", options, ref
     , (err, stdout, stderr) =>
@@ -53,7 +53,7 @@ module.exports = class Commit
       return callback null, @parse_commits(repo, stdout)
 
 
-  @find: (repo, id, callback) ->
+  @find: (repo, id="HEAD", callback) ->
     options = {pretty: "raw", "max-count": 1}
     repo.git "rev-list", options, id
     , (err, stdout, stderr) =>
